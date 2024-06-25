@@ -2,16 +2,30 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import preprocess, helper
 import seaborn as sns
+from zipfile import ZipFile
 
 st.sidebar.title("Whatsapp Chat Analyzer")
 
-uploaded_file = st.sidebar.file_uploader("Choose a file")
+uploaded_file = st.sidebar.file_uploader("Upload your chat zip file")
 if uploaded_file is not None:
+    if uploaded_file is not None:
+        # Extracting the zip file
+        with ZipFile(uploaded_file) as myzip:
+            text_files = [f for f in myzip.namelist() if f.endswith('.txt') and f.startswith("WhatsApp")]
+            if text_files:
+                for file_name in text_files:
+                    with myzip.open(file_name) as myfile:
+                        # bytes_data = myfile.getvalue()
+                        data = myfile.read().decode('utf-8')
+                        # st.subheader(f"Content of {file_name}:")
+                        # st.text(content)
+            else:
+                st.write("No text files found in the ZIP file.")
     # To read file as bytes:
-    bytes_data = uploaded_file.getvalue()
+    # bytes_data = uploaded_file.getvalue()
 
     #bytes ko string me convert krna hai
-    data = bytes_data.decode("utf-8")
+    # data = bytes_data.decode("utf-8")
     df = preprocess.preprocessor(data)
 
     #st.dataframe(df) #st.dataframe to print dataframe
