@@ -283,6 +283,11 @@ gotten
 greetings
 guys
 h
+hn...
+hn..
+hn.
+hn
+han
 haan
 had
 hadd
@@ -648,6 +653,7 @@ new
 next
 nhi
 nine
+nii
 no
 nobody
 non
